@@ -49,6 +49,17 @@ describe('Symmetric.auth()', function () {
 });
 
 describe('Symmetric.encrypt', function() {
+    it('should encrypt a message', function() {
+        let symKey = new SymmetricKey(
+            hex.parse("146e4cc92d60bd163c8d8eb0468734cc3c3b7ae7616cbc690c721fd5b08370cf")
+        );
+        let message = "This is a test message.";
+
+        let cipher = Symmetric.encrypt(message, symKey);
+        let decrypt = Symmetric.decrypt(cipher, symKey);
+        expect(decrypt).to.be.equal(message);
+    });
+
     it('should pass the standard test vectors', function() {
         return loadJsonFile('./test/test-vectors.json').then(json => {
             let keys = {};
