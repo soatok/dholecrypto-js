@@ -1,0 +1,42 @@
+{
+  "name": "dhole-crypto",
+  "version": "0.0.1",
+  "description": "JavaScript port of soatok/dhole-cryptography from PHP",
+  "main": "index.js",
+  "repository": "https://github.com/soatok/dholecrypto-js",
+  "keywords": [
+    "argon2id",
+    "ed25519",
+    "blake2b",
+    "hmac-sha512256",
+    "poly1305",
+    "x25519",
+    "xchacha20",
+    "cryptography",
+    "crypto",
+    "libsodium",
+    "sodium",
+    "dhole",
+    "dholes",
+    "furry",
+    "furries",
+    "furry fandom"
+  ],
+  "author": "Soatok Dreamseeker",
+  "license": "ISC",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "rfc4648": "^1.2.0",
+    "sodium-native": "^2.3.0",
+    "typedarray-to-buffer": "^3.1.5"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^6.1.3"
+  }
+}
