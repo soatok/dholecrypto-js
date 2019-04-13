@@ -6,3 +6,9 @@ JavaScript port of [Dhole Cryptography](https://github.com/soatok/dhole-cryptogr
 
 Libsodium wrapper for Soatok's JavaScript projects. Released under the very
 permissive ISC license.
+
+## Installation
+
+```
+npm install dhole-crypto
+```
