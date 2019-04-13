@@ -47,3 +47,38 @@ describe('Symmetric.auth()', function () {
         });
     });
 });
+
+describe('Symmetric.encrypt', function() {
+    it('should pass the standard test vectors', function() {
+        return loadJsonFile('./test/test-vectors.json').then(json => {
+            let keys = {};
+            let k;
+            for (k in json.symmetric.keys) {
+                keys[k] = new SymmetricKey(
+                    Util.stringToBuffer(base64url.parse(json.symmetric.keys[k]))
+                );
+            }
+
+            let key;
+            let test;
+            let check;
+            for (let i = 0; i < json.symmetric.encrypt.length; i++) {
+                test = json.symmetric.encrypt[i];
+                key = keys[test.key];
+                try {
+                    check = Symmetric.decryptWithAd(
+                        test.encrypted,
+                        key,
+                        test.aad
+                    );
+                } catch (e) {
+                    console.log("Failure at index " + i);
+                    throw e;
+                }
+                expect(check).to.be.equal(test.decrypted);
+            }
+        }).catch(function(e) {
+            assert.fail(e);
+        });
+    });
+});
