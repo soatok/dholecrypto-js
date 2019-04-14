@@ -12,3 +12,99 @@ permissive ISC license.
 ```
 npm install dhole-crypto
 ```
+
+## Usage
+
+### Asymmetric Cryptography
+
+#### Digital Signatures
+
+```javascript
+const { 
+    Asymmetric, 
+    AsymmetricSecretKey
+} = require('dhole-crypto');
+
+let wolfSecret = AsymmetricSecretKey.generate();
+let wolfPublic = wolfSecret.getPublicKey();
+
+let message = "Your $350 awoo fine has been paid UwU";
+
+let signature = Asymmetric.sign(message, wolfSecret);
+
+if (!Asymmetric.verify(message, wolfPublic, signature)) {
+    console.log("Invalid signature. Awoo not authorized.");
+}
+```
+
+#### Authenticated Public-Key Encryption
+
+```javascript
+const { 
+    Asymmetric, 
+    AsymmetricSecretKey
+} = require('dhole-crypto');
+
+let foxSecret = AsymmetricSecretKey.generate();
+let foxPublic = foxSecret.getPublicKey();
+
+let wolfSecret = AsymmetricSecretKey.generate();
+let wolfPublic = wolfSecret.getPublicKey();
+
+let message = "Encrypt me UwU";
+let encrypted = Asymmetric.encrypt(message, foxPublic, wolfSecret);
+let decrypted = Asymmetric.decrypt(encrypted, foxSecret, wolfPublic);
+console.log(decrypted); // "Encrypt me UwU"
+```
+
+#### Anonymous Public-Key Encryption
+
+```javascript
+const { 
+    Asymmetric, 
+    AsymmetricSecretKey
+} = require('dhole-crypto');
+
+let foxSecret = AsymmetricSecretKey.generate();
+let foxPublic = foxSecret.getPublicKey();
+
+let message = "Encrypt me UwU";
+let encrypted = Asymmetric.seal(message, foxPublic);
+let decrypted = Asymmetric.unseal(encrypted, foxSecret);
+console.log(decrypted); // "Encrypt me UwU"
+```
+
+### Symmetric Cryptography
+
+#### Symmetric Authentication
+
+```javascript
+const {
+    Symmetric,
+    SymmetricKey
+} = require('dhole-crypto');
+
+let symmetricKey = SymmetricKey.generate();
+
+let message = "AWOOOOOOOOOOOO";
+let mac = Symmetric.auth(message, symmetricKey);
+if (!Symmetric.verify(message, mac, symmetricKey)) {
+    console.log("Unauthorized Awoo. $350 fine incoming");
+}
+```
+
+#### Symmetric Encryption
+
+```javascript
+const {
+    Symmetric,
+    SymmetricKey
+} = require('dhole-crypto');
+
+let symmetricKey = SymmetricKey.generate();
+
+let message = "Encrypt me UwU";
+let encrypted = Symmetric.encrypt(message, symmetricKey);
+let decrypted = Symmetric.decrypt(encrypted, symmetricKey);
+console.log(decrypted); // "Encrypt me UwU"
+```
