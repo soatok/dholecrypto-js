@@ -10,6 +10,54 @@ const base64url = require('rfc4648').base64url;
 const hex = require('rfc4648').base16;
 const loadJsonFile = require('load-json-file');
 
+
+describe('Asymmetric.encrypt()', function () {
+    it('should allow messages to encrypt', function () {
+        let aliceSk = AsymmetricSecretKey.generate();
+        let alicePk = aliceSk.getPublicKey();
+        let bobSk = AsymmetricSecretKey.generate();
+        let bobPk = bobSk.getPublicKey();
+
+        let message = "This is a super secret message UwU";
+        let encrypted = Asymmetric.encrypt(message, alicePk, bobSk);
+        let decrypted = Asymmetric.decrypt(encrypted, aliceSk, bobPk);
+        expect(message).to.be.equal(decrypted);
+    });
+
+    it('should pass the standard test vectors', function() {
+        return loadJsonFile('./test/test-vectors.json').then(json => {
+            let participants = {};
+            let test;
+
+            // Load all of our participants...
+            let k;
+            let t;
+            for (k in json.asymmetric.participants) {
+                participants[k] = {};
+                participants[k].sk = new AsymmetricSecretKey(
+                    base64url.parse(json.asymmetric.participants[k]['secret-key'])
+                );
+                participants[k].pk = new AsymmetricPublicKey(
+                    base64url.parse(json.asymmetric.participants[k]['public-key'])
+                );
+            }
+
+            let result;
+            for (t = 0; t < json.asymmetric.encrypt.length; t++) {
+                test = json.asymmetric.encrypt[t];
+                result = Asymmetric.decrypt(
+                    test.encrypted,
+                    participants[test.recipient].sk,
+                    participants[test.sender].pk
+                ).toString('binary');
+                expect(test.decrypted).to.be.equal(result);
+            }
+        }).catch(function(e) {
+            assert.fail(e);
+        });
+    });
+});
+
 describe('Asymmetric.keyExchange()', function () {
     it('should generate congruent shared secrets', function() {
         let alice = AsymmetricSecretKey.generate();
