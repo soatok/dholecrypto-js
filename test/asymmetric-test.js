@@ -120,7 +120,6 @@ describe('Asymmetric.seal()', function () {
         let alicePk = aliceSk.getPublicKey();
         let message = "This is a super secret message UwU";
         let sealed = Asymmetric.seal(message, alicePk);
-        console.log(sealed);
         let unseal = Asymmetric.unseal(sealed, aliceSk);
         expect(message).to.be.equal(unseal);
     });
@@ -151,6 +150,61 @@ describe('Asymmetric.seal()', function () {
                     participants[test.recipient].sk
                 ).toString('binary');
                 expect(test.unsealed).to.be.equal(result);
+            }
+        }).catch(function(e) {
+            assert.fail(e);
+        });
+    });
+});
+
+describe('Asymmetric.sign()', function () {
+    it('should allow messages to sign/verify', function () {
+        let aliceSk = AsymmetricSecretKey.generate();
+        let alicePk = aliceSk.getPublicKey();
+        let message = "This is a super secret message UwU";
+        let sig = Asymmetric.sign(message, aliceSk);
+        assert(Asymmetric.verify(message, alicePk, sig), 'Signatures not valid');
+    });
+
+    it('should pass the standard test vectors', function() {
+        return loadJsonFile('./test/test-vectors.json').then(json => {
+            let participants = {};
+            let test;
+
+            // Load all of our participants...
+            let k;
+            let t;
+            for (k in json.asymmetric.participants) {
+                participants[k] = {};
+                participants[k].sk = new AsymmetricSecretKey(
+                    base64url.parse(json.asymmetric.participants[k]['secret-key'])
+                );
+                participants[k].pk = new AsymmetricPublicKey(
+                    base64url.parse(json.asymmetric.participants[k]['public-key'])
+                );
+            }
+
+            let signed;
+            let result;
+            for (t = 0; t < json.asymmetric.sign.length; t++) {
+                test = json.asymmetric.sign[t];
+                signed = Asymmetric.sign(
+                    test.message,
+                    participants[test.signer].sk
+                );
+                result = Asymmetric.verify(
+                    test.message,
+                    participants[test.signer].pk,
+                    signed
+                );
+                expect(result).to.be.equal(true);
+
+                result = Asymmetric.verify(
+                    test.message,
+                    participants[test.signer].pk,
+                    test.signature
+                );
+                expect(result).to.be.equal(true);
             }
         }).catch(function(e) {
             assert.fail(e);
