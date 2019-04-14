@@ -39,7 +39,6 @@ describe('Asymmetric.keyExchange()', function () {
         );
     });
 
-
     it('should pass the standard test vectors', function() {
         return loadJsonFile('./test/test-vectors.json').then(json => {
             let participants = {};
@@ -109,6 +108,50 @@ describe('Asymmetric.keyExchange()', function () {
                 shared['wolf-from-fox'].getBuffer().toString('hex')
             );
 
+        }).catch(function(e) {
+            assert.fail(e);
+        });
+    });
+});
+
+describe('Asymmetric.seal()', function () {
+    it('should allow messages to seal/unseal', function () {
+        let aliceSk = AsymmetricSecretKey.generate();
+        let alicePk = aliceSk.getPublicKey();
+        let message = "This is a super secret message UwU";
+        let sealed = Asymmetric.seal(message, alicePk);
+        console.log(sealed);
+        let unseal = Asymmetric.unseal(sealed, aliceSk);
+        expect(message).to.be.equal(unseal);
+    });
+
+    it('should pass the standard test vectors', function() {
+        return loadJsonFile('./test/test-vectors.json').then(json => {
+            let participants = {};
+            let test;
+
+            // Load all of our participants...
+            let k;
+            let t;
+            for (k in json.asymmetric.participants) {
+                participants[k] = {};
+                participants[k].sk = new AsymmetricSecretKey(
+                    base64url.parse(json.asymmetric.participants[k]['secret-key'])
+                );
+                participants[k].pk = new AsymmetricPublicKey(
+                    base64url.parse(json.asymmetric.participants[k]['public-key'])
+                );
+            }
+
+            let result;
+            for (t = 0; t < json.asymmetric.seal.length; t++) {
+                test = json.asymmetric.seal[t];
+                result = Asymmetric.unseal(
+                    test.sealed,
+                    participants[test.recipient].sk
+                ).toString('binary');
+                expect(test.unsealed).to.be.equal(result);
+            }
         }).catch(function(e) {
             assert.fail(e);
         });
