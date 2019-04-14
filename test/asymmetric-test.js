@@ -109,18 +109,6 @@ describe('Asymmetric.keyExchange()', function () {
                 shared['wolf-from-fox'].getBuffer().toString('hex')
             );
 
-            /*
-                "keys": {
-                  "default": "I0_8IIaFzzyCuCoOlpM96k1wr_LXPq5jvorNox5oU4g=",
-                  "fox-to-wolf": "T5c8D4jcrRYKFEU4ooALddyl_cqtxdmjY0DXbaZshAY=",
-                  "wolf-to-fox": "n4x_eppOqnUH8nCGQxoJBvBlovE0iq-p3s58Lfko0hw=",
-                  "fox-from-wolf": "n4x_eppOqnUH8nCGQxoJBvBlovE0iq-p3s58Lfko0hw=",
-                  "wolf-from-fox": "T5c8D4jcrRYKFEU4ooALddyl_cqtxdmjY0DXbaZshAY=",
-                  "key-wrap": "Qgh-5eu2liNWboHIl0xxsaVsuQ0h1-ZgAb7y37J4200="
-                },
-             */
-
-
         }).catch(function(e) {
             assert.fail(e);
         });
