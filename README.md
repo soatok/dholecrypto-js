@@ -126,3 +126,21 @@ if (!Symmetric.verify(message, mac, symmetricKey)) {
     console.log("Unauthorized Awoo. $350 fine incoming");
 }
 ```
+
+## Password Storage
+
+```javascript
+const {
+    Password,
+    SymmetricKey
+} = require('dhole-crypto');
+
+let symmetricKey = SymmetricKey.generate();
+let pwHandler = new Password(symmetricKey);
+
+let password = 'cowwect howse battewy staple UwU';
+let pwhash = pwHandler.hash(password);
+if (!pwHandler.verify(password, pwhash)) {
+    console.log("access denied");    
+}
+```
