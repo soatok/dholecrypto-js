@@ -77,7 +77,40 @@ console.log(decrypted); // "Encrypt me UwU"
 
 ### Symmetric Cryptography
 
-#### Symmetric Authentication
+#### Encryption
+
+```javascript
+const {
+    Symmetric,
+    SymmetricKey
+} = require('dhole-crypto');
+
+let symmetricKey = SymmetricKey.generate();
+
+let message = "Encrypt me UwU";
+let encrypted = Symmetric.encrypt(message, symmetricKey);
+let decrypted = Symmetric.decrypt(encrypted, symmetricKey);
+console.log(decrypted); // "Encrypt me UwU"
+```
+
+#### Encryption with Additional Data 
+
+```javascript
+const {
+    Symmetric,
+    SymmetricKey
+} = require('dhole-crypto');
+
+let symmetricKey = SymmetricKey.generate();
+
+let message = "Encrypt me UwU";
+let publicData = "OwO? UwU";
+let encrypted = Symmetric.encryptWithAd(message, symmetricKey, publicData);
+let decrypted = Symmetric.decryptWithAd(encrypted, symmetricKey, publicData);
+console.log(decrypted); // "Encrypt me UwU"
+```
+
+#### Unencrypted Message Authentication
 
 ```javascript
 const {
@@ -92,20 +125,4 @@ let mac = Symmetric.auth(message, symmetricKey);
 if (!Symmetric.verify(message, mac, symmetricKey)) {
     console.log("Unauthorized Awoo. $350 fine incoming");
 }
-```
-
-#### Symmetric Encryption
-
-```javascript
-const {
-    Symmetric,
-    SymmetricKey
-} = require('dhole-crypto');
-
-let symmetricKey = SymmetricKey.generate();
-
-let message = "Encrypt me UwU";
-let encrypted = Symmetric.encrypt(message, symmetricKey);
-let decrypted = Symmetric.decrypt(encrypted, symmetricKey);
-console.log(decrypted); // "Encrypt me UwU"
 ```
