@@ -1,6 +1,6 @@
 {
   "name": "dhole-crypto",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "JavaScript port of soatok/dhole-cryptography from PHP",
   "main": "index.js",
   "repository": "https://github.com/soatok/dholecrypto-js",

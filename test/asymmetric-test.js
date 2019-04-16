@@ -10,7 +10,6 @@ const base64url = require('rfc4648').base64url;
 const hex = require('rfc4648').base16;
 const loadJsonFile = require('load-json-file');
 
-
 describe('Asymmetric.encrypt()', function () {
     it('should allow messages to encrypt', function () {
         let aliceSk = AsymmetricSecretKey.generate();

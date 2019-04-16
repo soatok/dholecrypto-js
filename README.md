@@ -144,3 +144,69 @@ if (!pwHandler.verify(password, pwhash)) {
     console.log("access denied");    
 }
 ```
+
+## Keyring
+
+You can serialize any key by using the `Keyring` class.
+
+```javascript
+const {
+    AsymmetricSecretKey,
+    Keyring,
+    SymmetricKey
+} = require('dhole-crypto');
+
+let foxSecret = AsymmetricSecretKey.generate();
+let foxPublic = foxSecret.getPublicKey();
+let symmetric = SymmetricKey.generate();
+// Load a serializer
+let ring = new Keyring(wrap);
+
+// Serialize to string
+let sk = ring.save(foxSecret);
+let pk = ring.save(foxPublic);
+let key = ring.save(symmetric);
+
+// Load from string
+let loadSk = ring.load(sk);
+let loadPk = ring.load(pk);
+let loadSym = ring.load(key);
+```
+
+The `Keyring` class also supports keywrap. Simply pass a separate `SymmetricKey`
+instance to the constructor to get wrapped keys.
+
+```javascript
+const {
+    AsymmetricSecretKey,
+    Keyring,
+    SymmetricKey
+} = require('dhole-crypto');
+
+// Keywrap key...
+let wrap = SymemtricKey.generate();
+
+let foxSecret = AsymmetricSecretKey.generate();
+let foxPublic = foxSecret.getPublicKey();
+let symmetric = SymmetricKey.generate();
+
+// Load a serializer
+let ring = new Keyring(wrap);
+
+// Serialize to string
+let sk = ring.save(foxSecret);
+let pk = ring.save(foxPublic);
+let key = ring.save(symmetric);
+
+// Load from string
+let loadSk = ring.load(sk);
+let loadPk = ring.load(pk);
+let loadSym = ring.load(key);
+```
+
+# Support
+
+If you run into any trouble using this library, or something breaks,
+feel free to file a Github issue.
+
+If you need help with integration, [Soatok is available for freelance work](https://soatok.com/freelance).

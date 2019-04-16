@@ -33,13 +33,13 @@ describe('Symmetric.auth()', function () {
             let test;
             let check;
             for (let i = 0; i < json.symmetric.auth.length; i++) {
-                 test = json.symmetric.auth[i];
-                 key = keys[test.key];
-                 check = Symmetric.verify(
-                     test.message,
-                     Buffer.from(test.mac, 'hex'),
-                     key
-                 );
+                test = json.symmetric.auth[i];
+                key = keys[test.key];
+                check = Symmetric.verify(
+                    test.message,
+                    Buffer.from(test.mac, 'hex'),
+                    key
+                );
                 expect(check).to.be.equal(true);
             }
         }).catch(function(e) {
