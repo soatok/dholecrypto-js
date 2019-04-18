@@ -8,6 +8,10 @@ JavaScript port of [Dhole Cryptography](https://github.com/soatok/dhole-cryptogr
 Libsodium wrapper for Soatok's JavaScript projects. Released under the very
 permissive ISC license.
 
+> Important: Until version `v1.0.0` is released, please don't deploy this library
+> in any production systems. I'll tag `v1.0.0` when I'm confident in the correctness
+> and security of the implementation.
+
 ## Installation
 
 ```
@@ -160,7 +164,7 @@ let foxSecret = AsymmetricSecretKey.generate();
 let foxPublic = foxSecret.getPublicKey();
 let symmetric = SymmetricKey.generate();
 // Load a serializer
-let ring = new Keyring(wrap);
+let ring = new Keyring();
 
 // Serialize to string
 let sk = ring.save(foxSecret);
