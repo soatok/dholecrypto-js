@@ -1,6 +1,6 @@
 {
   "name": "dhole-crypto",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "JavaScript port of soatok/dhole-cryptography from PHP",
   "main": "index.js",
   "repository": "https://github.com/soatok/dholecrypto-js",
@@ -34,11 +34,11 @@
     "assert": "^1.4.1",
     "load-json-file": "^5.3.0",
     "rfc4648": "^1.2.0",
-    "sodium-native": "^2.3.0",
+    "sodium-native": "^2.4.2",
     "typedarray-to-buffer": "^3.1.5"
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.1.3"
+    "mocha": "^6.2.0"
   }
 }
