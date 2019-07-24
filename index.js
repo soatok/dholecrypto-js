@@ -8,5 +8,6 @@ module.exports = {
     'Keyring': require('./lib/Keyring'),
     'Password': require('./lib/Password'),
     'Symmetric': require('./lib/Symmetric'),
-    'SymmetricKey': require('./lib/key/SymmetricKey')
+    'SymmetricKey': require('./lib/key/SymmetricKey'),
+    "_sodium": require('sodium-native')
 };
