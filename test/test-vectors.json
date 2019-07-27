@@ -194,6 +194,27 @@
       }
     ]
   },
+  "asymmetric-file-sign": {
+    "public-key": "ed25519pkXCR0xjG4e-uo3rr2WxFDACDqgHk2ECamBiv38e1O4s0g3RQm6etECWWacSS7LWn1up4UC90_M0RhwBiRO_fUoBjznlKp1T7PIWs7KpA7FRQ=",
+    "tests": [
+      {
+        "contents": "",
+        "signature": "M4JaKWpcYbE5zVpSFrv8az-orR4fG1obZFhBHwgyX7_cBWiX2I9bX2PNKklCQfPguRU6k1mIMj4L25lHv97zCyi-UjP_c2UbrqjTLTovClI-pY9zR5602AWpVBwPjv31"
+      },
+      {
+        "contents": "this is a test message",
+        "signature": "hRYfJManWgWejGUcVJAtGTy3JM3IFVXut6tFzZTVaPyRpUXKlXuOL_uzTcaZimkDeAAcBSk1jMPvp4QoRDssBVqY5yDTHfPhB3ujxNTt-m-eFXrll3GO81B-aYjq8jFq"
+      },
+      {
+        "contents": "trans rights are human rights",
+        "signature": "xiTSy24t0wC_pz_IkA4GQFCVMcyVejSi6S5nBVW127MtYXMK6BPv0wlKrXlan9XYA_0wGmXc29iMRznPUEBaADItcm2zM6Hi-Dk6Ejl0vYR9UNvE5Mw8nZljmEz1jU6C"
+      },
+      {
+        "contents": "as a furry you are legally obligated to make cringey furry puns whenever pawsible\n\nthere is no excuse fur knot doing so\u0000\n",
+        "signature": "9qbpldEPZauMf2bsrh9DYFBoz10_tMA7piMBvIC1aM-JWz9Wi0aHY3raCVE0HFwBVaMz0gdF3vx2DwazlxD8DPR_0C5xVjJmpN_hBRjR1Wsghr6ype6xHvfC7Dm_Goxe"
+      }
+    ]
+  },
   "symmetric": {
     "keys": {
       "default": "I0_8IIaFzzyCuCoOlpM96k1wr_LXPq5jvorNox5oU4g=",
