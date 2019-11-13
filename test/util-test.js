@@ -4,29 +4,29 @@ const Util = require('../lib/Util');
 const hex = require('rfc4648').base16;
 
 describe('Util', function () {
-    it('randomBytes() uniqueness', function () {
-        let a = Util.randomBytes(16);
-        let b = Util.randomBytes(16);
+    it('randomBytes() uniqueness', async function () {
+        let a = await Util.randomBytes(16);
+        let b = await Util.randomBytes(16);
         expect(a.toString('hex')).to.not.equals(b.toString('hex'));
     });
 
-    it ('randomInt() uniqueness', function () {
+    it ('randomInt() uniqueness', async function () {
         let a, b;
         for (let i = 0; i < 1000; i++) {
-            a = Util.randomInt(0, Number.MAX_SAFE_INTEGER);
-            b = Util.randomInt(0, Number.MAX_SAFE_INTEGER);
+            a = await Util.randomInt(0, Number.MAX_SAFE_INTEGER);
+            b = await Util.randomInt(0, Number.MAX_SAFE_INTEGER);
             expect(a).to.not.equals(b);
         }
     });
 
-    it ('randomInt() distribution', function () {
+    it ('randomInt() distribution', async function () {
         let space = [0,0,0,0,0];
         let iter = 0;
         let inc;
         let i;
         let failureSpotted;
         while (iter < 10000) {
-            inc = Util.randomInt(0, space.length - 1);
+            inc = await Util.randomInt(0, space.length - 1);
             space[inc]++;
             failureSpotted = false;
             for (i = 0; i < space.length; i++) {

@@ -10,7 +10,7 @@ const loadJsonFile = require('load-json-file');
 
 describe('AsymmetricFile', function() {
     it('sign()', async function() {
-        let aliceSk = AsymmetricSecretKey.generate();
+        let aliceSk = await AsymmetricSecretKey.generate();
         let alicePk = aliceSk.getPublicKey();
 
         let buffer = base32.stringify(Util.randomBytes(10000));
@@ -25,7 +25,7 @@ describe('AsymmetricFile', function() {
     it('should pass the standard test vectors', async function() {
         let json = await loadJsonFile('./test/test-vectors.json');
         let keyring = new Keyring();
-        let publicKey = keyring.loadAsymmetricPublicKey(
+        let publicKey = await keyring.loadAsymmetricPublicKey(
             json['asymmetric-file-sign']['public-key']
         );
         let i = 2;
