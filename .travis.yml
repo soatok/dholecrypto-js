@@ -5,3 +5,5 @@ node_js:
 
 script:
   - npm test
+  - npm install --save sodium-native
+  - npm test

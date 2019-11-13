@@ -7,33 +7,35 @@ const fsp = fs.promises;
 const hex = require('rfc4648').base16;
 const loadJsonFile = require('load-json-file');
 const SymmetricFile = require('../lib/SymmetricFile');
-const sodium = require('sodium-native');
 const Util = require('../lib/Util');
+const { SodiumPlus } = require('sodium-plus');
+let sodium;
 
 describe('SymmetricFile', function() {
     it('hash()', async function() {
+        if (!sodium) sodium = await SodiumPlus.auto();
         let buf;
         let i = 1;
         let file;
-        let a;
-        let b = Buffer.alloc(64);
+        let a, b;
         let random;
         for (let len of [32, 64, 100, 1000, 10000]) {
-            buf = base32.stringify(Util.randomBytes(len));
+            buf = base32.stringify(await Util.randomBytes(len));
             await fsp.writeFile(__dirname + "/test" + i + ".txt", buf);
             file = await fsp.open(__dirname + "/test" + i + ".txt", 'r');
 
             // First test case...
             a = await SymmetricFile.hash(file);
-            sodium.crypto_generichash(b, Util.stringToBuffer(buf));
+            b = await sodium.crypto_generichash(Util.stringToBuffer(buf), null, 64);
             expect(hex.stringify(a)).to.be.equal(hex.stringify(b));
 
             // Second test case...
-            random = Util.randomBytes(32);
+            random = await Util.randomBytes(32);
             a = await SymmetricFile.hash(file, random);
-            sodium.crypto_generichash(
-                b,
-                Buffer.concat([random, Util.stringToBuffer(buf)])
+            b = await sodium.crypto_generichash(
+                Buffer.concat([random, Util.stringToBuffer(buf)]),
+                null,
+                64
             );
             expect(
                 hex.stringify(a)
