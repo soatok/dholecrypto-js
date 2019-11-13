@@ -10,6 +10,5 @@ module.exports = {
     'Password': require('./lib/Password'),
     'Symmetric': require('./lib/Symmetric'),
     'SymmetricFile': require('./lib/SymmetricFile'),
-    'SymmetricKey': require('./lib/key/SymmetricKey'),
-    "_sodium": require('sodium-native')
+    'SymmetricKey': require('./lib/key/SymmetricKey')
 };
