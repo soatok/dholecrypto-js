@@ -73,7 +73,7 @@ describe('Symmetric.encrypt', function() {
         );
         await expectError(
             Symmetric.decryptWithAd(cipher.slice(8), symKey),
-            'MAC is not sufficient in length'
+            'Invalid header'
         );
     });
 
