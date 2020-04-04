@@ -48,5 +48,12 @@ describe('SymmetricFile', function() {
             await fsp.unlink(__dirname + "/test" + i + ".txt");
             i++;
         }
+        i++;
+        buf = base32.stringify(await Util.randomBytes(32));
+        let finExpect = await sodium.crypto_generichash(Util.stringToBuffer(buf), null, 64);
+        await fsp.writeFile(__dirname + "/test" + i + ".txt", buf);
+        let finHash = await SymmetricFile.hash(__dirname + "/test" + i + ".txt");
+        await fsp.unlink(__dirname + "/test" + i + ".txt");
+        expect(hex.stringify(finHash)).to.be.equal(hex.stringify(finExpect));
     });
 });
