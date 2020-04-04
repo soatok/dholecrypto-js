@@ -3,6 +3,7 @@
   "version": "0.7.0",
   "description": "JavaScript port of soatok/dhole-cryptography from PHP",
   "main": "index.js",
+  "types": "index.d.ts",
   "repository": "https://github.com/soatok/dholecrypto-js",
   "keywords": [
     "argon2id",
@@ -34,7 +35,7 @@
     "assert": "^2.0.0",
     "load-json-file": "^6.2.0",
     "rfc4648": "^1.3.0",
-    "sodium-plus": "^0.7.0",
+    "sodium-plus": "^0.7.1",
     "typedarray-to-buffer": "^3.1.5"
   },
   "devDependencies": {
