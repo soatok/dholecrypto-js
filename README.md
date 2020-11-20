@@ -1,6 +1,7 @@
 # DholeCrypto.js
 
-[![Support on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.herokuapp.com%2Fsoatok&style=flat)](https://patreon.com/soatok)
+[![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dsoatok%26type%3Dpatrons&style=for-the-badge)](https://patreon.com/soatok)
+
 [![Travis CI](https://travis-ci.org/soatok/dholecrypto-js.svg?branch=master)](https://travis-ci.org/soatok/dholecrypto-js)
 [![npm version](https://img.shields.io/npm/v/dhole-crypto.svg)](https://npm.im/dhole-crypto)
 
